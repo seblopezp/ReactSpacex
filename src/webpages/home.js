@@ -28,13 +28,6 @@ const Home = () => {
       );
   }, []);
 
-  const styles = {
-    media: {
-      height: 150,
-      width: "43%",
-    },
-  };
-
   const LaunchesGrid = () => {
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -51,9 +44,8 @@ const Home = () => {
                 <Card sx={{ maxWidth: 345 }}>
                   <CardHeader title={launch.name} />
                   <CardMedia
-                    sx={{ mx: "auto", width: 200 }}
+                    sx={{ mx: "auto", width: 150 }}
                     component="img"
-                    style={styles.media}
                     image={
                       launch.links.patch.small
                         ? launch.links.patch.small
