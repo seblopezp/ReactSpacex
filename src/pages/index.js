@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home/home";
 import Launch from "./Launch/launch";
-const Webpages = () => {
+const Pages = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -12,4 +12,4 @@ const Webpages = () => {
     </BrowserRouter>
   );
 };
-export default Webpages;
+export default Pages;

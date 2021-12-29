@@ -1,10 +1,10 @@
 import React from "react";
-import Webpages from "./webpages";
+import Pages from "./pages";
 import Container from "@mui/material/Container";
 function App() {
   return (
     <Container>
-      <Webpages />
+      <Pages />
     </Container>
   );
 }
