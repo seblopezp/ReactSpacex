@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import defaultImage from "../../img/noimage.png";
 
 const Home = () => {
   const [error, setError] = useState(null);
@@ -47,7 +48,7 @@ const Home = () => {
                   <CardMedia
                     sx={{ mx: "auto", width: 150 }}
                     component="img"
-                    image={launch.links.patch.small}
+                    image={launch.links.patch.small || defaultImage}
                     alt={launch.name}
                   />
                   <CardContent>
