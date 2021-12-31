@@ -9,14 +9,15 @@ import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import defaultImage from "../../img/noimage.png";
-
+import { CircularProgress } from "@mui/material";
+import { constants } from "../utils/constants";
 const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [launches, setLaunches] = useState([]);
-
+  const { SPACEX_API_URL } = constants;
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v4/launches")
+    fetch(`${SPACEX_API_URL}/launches`)
       .then((res) => res.json())
       .then(
         (data) => {
@@ -34,7 +35,7 @@ const Home = () => {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <CircularProgress color="primary" />;
     } else {
       return (
         <>

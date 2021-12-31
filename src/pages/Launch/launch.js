@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { constants } from "../utils/constants";
+
 const Launch = () => {
   const location = useLocation();
   const id = location.state;
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [launchDetail, setlaunchDetail] = useState([]);
-
+  const { SPACEX_API_URL } = constants;
   useEffect(() => {
-    fetch(`https://api.spacexdata.com/v4/launches/${id}`)
+    fetch(`${SPACEX_API_URL}/launches/${id}`)
       .then((res) => res.json())
       .then(
         (data) => {
