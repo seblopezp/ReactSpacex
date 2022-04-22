@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
+import { Chip } from "@mui/material";
 import { Link } from "react-router-dom";
-import defaultImage from "../../img/noimage.png";
-import { CircularProgress } from "@mui/material";
 import { constants } from "../utils/constants";
+import { CardMedia } from "@mui/material";
+import Loading from "../components/loading/loading";
+import SearchBar from "../components/searchBar/searchBar";
+import defaultImage from "../../img/noimage.png";
+
 const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,34 +32,48 @@ const Home = () => {
       );
   }, []);
 
+  const dateTransform = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const fullDate = `${date.getUTCDate()}/${
+      date.getUTCMonth() + 1
+    }/${date.getUTCFullYear()} ${date.getUTCHours()}:${date.getUTCMinutes()}`;
+    return fullDate;
+  };
+
+  const launchStatus = (status) => {
+    const statuslabel = status ? "Success" : "Failed";
+    return statuslabel;
+  };
+
   const LaunchesGrid = () => {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <CircularProgress color="primary" />;
+      return <Loading />;
     } else {
       return (
         <>
-          <h1>Spacex launches</h1>
-
+          <SearchBar />
           <Grid container spacing={2}>
             {launches.map((launch) => (
               <Grid item xs={6} sm={4} md={4} key={launch.id}>
-                <Card sx={{ maxWidth: 345 }}>
-                  <CardHeader title={launch.name} />
+                <Card sx={{ maxWidth: 550 }}>
+                  <CardHeader
+                    action={
+                      <Chip
+                        label={launchStatus(launch.success)}
+                        color={launch.success ? "success" : "error"}
+                      />
+                    }
+                    title={launch.name}
+                    subheader={dateTransform(launch.date_unix)}
+                  />
                   <CardMedia
-                    sx={{ mx: "auto", width: 150 }}
+                    sx={{ mx: "auto", width: 150, maxHeight: 150 }}
                     component="img"
                     image={launch.links.patch.small || defaultImage}
                     alt={launch.name}
                   />
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      {launch.details
-                        ? launch.details
-                        : "No description provided."}
-                    </Typography>
-                  </CardContent>
                   <CardActions disableSpacing>
                     <Button size="small" color="primary">
                       <Link to={`launch/${launch.id}`} state={launch.id}>
