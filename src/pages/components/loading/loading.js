@@ -1,10 +1,12 @@
 import React from "react";
-import { CircularProgress } from "@mui/material";
-
+import Alert from "@mui/material/Alert";
 const Loading = (props) => {
   console.log(props);
+
   return (
-    <p>loading...</p>
+    <Alert severity="info">
+      Loading data!
+    </Alert>
   );
 };
 
