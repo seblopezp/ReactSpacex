@@ -3,7 +3,7 @@ import Pages from "./pages";
 import Container from "@mui/material/Container";
 function App() {
   return (
-    <Container>
+    <Container maxWidth="static">
       <Pages />
     </Container>
   );
