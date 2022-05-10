@@ -1,37 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
+import Loading from "../components/loading/loading";
+import { useFetch } from "../hooks/useFetch";
 import { constants } from "../utils/constants";
-
 const Launch = () => {
   const location = useLocation();
   const id = location.state;
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [launchDetail, setlaunchDetail] = useState([]);
   const { SPACEX_API_URL } = constants;
-  useEffect(() => {
-    fetch(`${SPACEX_API_URL}/launches/${id}`)
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          setIsLoaded(true);
-          setlaunchDetail(data);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []);
+  const { loading, data } = useFetch(`${SPACEX_API_URL}/launches/${id}`);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
+if (loading) {
+    return <Loading />
   } else {
     return (
       <ul>
-        <li key={launchDetail.id}>{launchDetail.name}</li>
+        <li key={data.id}>{data.name}</li>
+        <li >{data.date_local}</li>
+        <li >{data.date_unix}</li>
+        <li >{data.details}</li>
       </ul>
     );
   }
