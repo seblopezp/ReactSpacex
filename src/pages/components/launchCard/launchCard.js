@@ -7,19 +7,14 @@ import { Chip } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import defaultImage from "../../../img/noimage.png";
+import { dateTransform } from "../../helpers/dateTransform";
 export const LaunchCard = (launchData) => {
   const { launch } = launchData;
   const launchStatus = (status) => {
     const statuslabel = status ? "Success" : "Failed";
     return statuslabel;
   };
-  const dateTransform = (timestamp) => {
-    const date = new Date(timestamp * 1000);
-    const fullDate = `${date.getUTCDate()}/${
-      date.getUTCMonth() + 1
-    }/${date.getUTCFullYear()} ${date.getUTCHours()}:${date.getUTCMinutes()}`;
-    return fullDate;
-  };
+ 
   return (
     <Card sx={{ maxWidth: 550 }}>
       <CardHeader
