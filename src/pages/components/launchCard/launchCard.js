@@ -11,7 +11,12 @@ import { dateTransform } from "../../helpers/dateTransform";
 export const LaunchCard = (launchData) => {
   const { launch } = launchData;
   const launchStatus = (status) => {
-    const statuslabel = status ? "Success" : "Failed";
+    let statuslabel = "";
+    if (status == null) {
+      statuslabel = "Upcoming";
+    }else{
+      statuslabel = status && status != null ? "Success" : "Failed";
+    }
     return statuslabel;
   };
  
@@ -35,7 +40,7 @@ export const LaunchCard = (launchData) => {
       />
       <CardActions disableSpacing>
         <Button size="small" color="primary">
-          <Link to={`launch/${launch.id}`} state={launch.id}>
+          <Link to={`/launch/${launch.id}`} state={launch.id}>
             Read more
           </Link>
         </Button>
